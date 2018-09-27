@@ -549,8 +549,8 @@ config.tlRules = {
     },
     "fooddistribution": function(v) {
       return v === 'daily' ? 'success'
-        : v === 'weekly' ? 'warning'
-        : /monthly|longer_than_a_month|other_specify/.test(v) ? 'danger'
+        : /weekly|monthly/.test(v) ? 'warning'
+        : /longer_than_a_month|other_specify/.test(v) ? 'danger'
         : 'unknown'
     },
     "wastedisposal": function(v) {

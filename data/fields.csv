@@ -39,7 +39,7 @@ what_are_the_reasons_of_displacement,What are the reasons that influenced displa
 specify_other_reasons_of_displacement,Please specify other reasons of displacement ,text,string,Displacement,,,,
 is_there_only_a_single_manager,Is there only a single camp manager? ,select_one yesnodnk,string,Camp_Management,yesnodnk,yesgreen,,
 is_there_a_camp_committee,Is there a Camp Committee ,select_one yesnodnk,string,Camp_Management,yesnodnk,yesgreen,,
-type_of_the_committee,Type of the Committee. (Select all that apply) ,select_multiple typeofcommittee,list,Camp_Management,typeofcommittee,committees,,
+type_of_the_committee,Type of the Committee. (Select all that apply) ,select_multiple typeofcommittee,list,Camp_Management,typeofcommittee,,,
 specify_type_of_committee,Please specify type of the committee ,text,string,Camp_Management,,,,
 percent_of_women_in_committee,Percent of women in Camp Committee ,select_one percentage,string,Camp_Management,percentage,percentage_committee,,
 percent_of_youth_in_committee,Percent of youth in Camp Committee ,select_one percentage,string,Camp_Management,percentage,percentage_committee,,
