@@ -1,0 +1,63 @@
+html, body, #map{
+    font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+body{
+    padding: 0;
+    margin: 0;
+    overflow-y: scroll;
+}
+.topRow{
+    margin-right: 0px;
+    padding-left: 25px;
+}
+#map{
+    margin-top:10px !important;
+    height:500px;
+}
+.typeahead{
+    width:90%;
+}
+.lorem{
+    font-style: italic;
+    color: #AAA;
+}
+.tl{
+    padding-bottom: 3px;
+}
+.categories{
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    padding-left:10px;
+    padding-right:5px;
+    margin-bottom:14px;
+    margin-right:1px;
+}
+.exportB{
+    cursor:pointer;
+}
+
+#itemTitle{
+    animation-name: Title;
+    animation-duration: 0.75s;
+}
+@keyframes Title{
+    0%{background-color: white;}
+    50%{background-color: #0083cb; color: white;}
+    100%{background-color: white;}
+}
+
+/* modalMask-dialog-table, related to exportPDF.js */
+#modalMask-dialog-table {
+    position:fixed;
+    top: 35%;
+    width:100%;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+    border: none;
+    border: none;
+    border-radius: 0px;
+    outline: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+}
+		

@@ -1,0 +1,196 @@
+name,condition
+group_enumeratordata,
+name_of_the_organization,
+name_of_the_person,
+email,
+mobile_phone,
+date_of_update,
+,
+group_general_info,
+governorate,
+district,
+subdistrict,
+community,
+site_camp_name,
+alternative_site_name,
+gps_coordinates,
+site_type,
+site_size,
+,
+group_demographics,
+total_idp_individuals,
+total_idp_families,
+male_infants,
+female_infants,
+males_7_months_4_years,
+females_7_months_4_years,
+males_5_12_years,
+females_5_12_years,
+males_13_17_years,
+females_13_17_years,
+males_18_35_years,
+females_18_35_years,
+males_over_60_years,
+females_over_60_years,
+main_source_of_population_info,
+specify_source_of_pop_info,${main_source_of_population_info} = 'other_specify'
+,
+group_population_movement,
+original_place_of_idps,
+governorate_first_origin,${original_place_of_idps} = 'yes'
+district_first_origin,${original_place_of_idps} = 'yes'
+subdistrict_first_origin,${original_place_of_idps} = 'yes'
+governorate_second_origin,${original_place_of_idps} = 'yes'
+district_second_origin,${original_place_of_idps} = 'yes'
+subdistrict_second_origin,${original_place_of_idps} = 'yes'
+governorate_third_origin,${original_place_of_idps} = 'yes'
+district_third_origin,${original_place_of_idps} = 'yes'
+subdistrict_third_origin,${original_place_of_idps} = 'yes'
+what_are_the_reasons_of_displacement,
+specify_other_reasons_of_displacement,"selected(${what_are_the_reasons_of_displacement}, 'other_specify')"
+,
+group_camp_management,
+is_there_only_a_single_manager,
+is_there_a_camp_committee,
+type_of_the_committee,${is_there_a_camp_committee} = 'yes'
+specify_type_of_committee,"selected(${type_of_the_committee}, 'other_specify')"
+percent_of_women_in_committee,${is_there_a_camp_committee} = 'yes'
+percent_of_youth_in_committee,${is_there_a_camp_committee} = 'yes'
+percent_of_elderly_in_committee,${is_there_a_camp_committee} = 'yes'
+is_the_land_public_or_private,
+do_idps_pay_rent_or_perform_services,
+,
+group_infrastructure,
+lighting_on_main_roads,
+lighting_in_paths_between_tents,
+camp_fenced,
+does_camp_need_fence,
+why_need_fence,${does_camp_need_fence} = 'yes'
+main_roads_paved,
+main_roads_gravelled,
+paths_between_tents_paved,
+gravelling_underneath_tents,
+heating_in_idp_accomodations,
+what_type_power_source_available,
+specify_type_of_power_source_available,"selected(${what_type_power_source_available}, 'other_specify')"
+is_power_source_needed_in_site,
+what_type_power_source_needed,${is_power_source_needed_in_site} = 'yes'
+specify_type_of_power_source_needed,"selected(${what_type_power_source_needed}, 'other_specify')"
+number_of_firebreaks,
+number_of_play_ground,
+number_of_multi_purp_building,
+designated_room_for_girls_women,
+is_there_a_child_friendly_space,
+designated_distribution_point,
+mobile_phone_coverage,
+internet_coverage,
+,
+group_protection,
+main_safety_concerns_for_idps,
+specify_main_safety_concerns,"selected(${main_safety_concerns_for_idps}, 'other_specify')"
+number_of_pregnant_women,
+number_of_person_with_disabilities,
+number_of_person_with_mental_disabilities,
+number_of_elderly_need_assistance,
+number_of_unaccompanied_children_under_17,
+number_of_separated_children_under_17,
+number_of_female_headed_hhs,
+number_of_children_headed_hhs,
+number_of_acute_or_chronically_ill_people,
+has_there_been_any_uxo_in_site,
+has_there_been_any_uxo_nearby_site,
+is_there_any_friction_with_host_community,
+,
+group_food,
+is_there_any_food_distribution,
+type_of_food_distributed,${is_there_any_food_distribution} = 'yes'
+specify_type_of_food,"selected(${type_of_food_distributed}, 'other_specify')"
+frequency_of_food_distribution,${is_there_any_food_distribution} = 'yes'
+specify_other_frequency,${frequency_of_food_distribution} = 'other_specify'
+what_meals_provided_in_a_day,${frequency_of_food_distribution} = 'daily'
+how_much_kcal,${is_there_any_food_distribution} = 'yes'
+percent_of_idps_assisted_with_food,${is_there_any_food_distribution} = 'yes'
+idps_mainly_get_their_food_from,
+specify_source_of_food,"selected(${idps_mainly_get_their_food_from}, 'other_specify')"
+number_of_communal_kitchens,
+,
+group_shelter,
+type_and_number_of_shelters,
+specify_type_of_shelter,"selected(${type_and_number_of_shelters}, 'other_specify')"
+number_of_tents,"selected(${type_and_number_of_shelters}, 'tents')"
+number_of_caravans,"selected(${type_and_number_of_shelters}, 'caravans')"
+number_of_makeshift_tents,"selected(${type_and_number_of_shelters}, 'makeshift_tents')"
+number_of_buildings,"selected(${type_and_number_of_shelters}, 'building')"
+number_of_mud_shelters,"selected(${type_and_number_of_shelters}, 'mud_shelters')"
+number_of_communal_tents,"selected(${type_and_number_of_shelters}, 'communal_tents')"
+specify_number_of_other_shelter,"selected(${type_and_number_of_shelters}, 'other_specify')"
+number_of_families_without_shelter,
+number_of_shelters_need_repair,
+number_of_shelters_in_flood_prone,
+,
+group_nfi,
+percent_of_idps_with_one_blanket,
+percent_of_person_with_mattress,
+percent_of_families_with_kitchen_sets,
+percent_of_families_with_cooking_stoves,
+percent_of_families_with_20L_water_container,
+is_there_any_fuel_distribution,
+what_type_fuel_distributed,${is_there_any_fuel_distribution} = 'yes'
+how_much_fuel_provided_per_family,${is_there_any_fuel_distribution} = 'yes'
+what_is_fuel_used_for,${is_there_any_fuel_distribution} = 'yes'
+,
+group_wash,
+main_sources_of_drinking_water,
+specify_main_source_of_water,"selected(${main_sources_of_drinking_water}, 'other_specify')"
+number_of_litres_of_water_per_person_per_day,
+number_of_functioning_latrines_segregated,
+number_of_functioning_latrines_for_male_only,
+number_of_functioning_latrines_for_female_only,
+number_of_functioning_private_latrines,
+number_of_functioning_segregated_showers_baths,
+number_of_functioning_showers_baths_male_only,
+number_of_functioning_showers_baths_female_only,
+number_of_functioning_private_bathing_facilities,
+number_of_hand_or_clothes_washing_station,
+latrine_doors_can_be_locked,
+lighting_in_or_near_latrines,
+number_of_water_tanks,
+water_tanks_capacity,
+number_of_septic_tanks,
+capacity_of_septic_tanks_overall,
+number_of_functional_water_points,
+is_there_any_drainage_ducts_along_roads,
+is_there_any_additional_drainage_ducts,
+is_there_any_drainage_among_tents,
+mainline_sewer_connection,
+main_means_of_solid_waste_disposal,
+specify_the_main_waste_disposal,"selected(${main_means_of_solid_waste_disposal}, 'other_specify')"
+,
+group_health,
+is_first_aid_responders_available,
+is_pharmacy_or_dispensary_available,
+reproductive_healthcare,
+primary_health_care_within_2_km_available,
+in_the_last_2_weeks_idps_experiencing_diarrhea,
+in_the_last_2_weeks_idps_experiencing_fever,
+in_the_last_2_weeks_idps_experiencing_skin_diseases,
+in_the_last_2_weeks_idps_experiencing_respiratory_illness,
+did_the_camp_have_a_death_last_30_days,
+,
+group_education,
+distance_in_kilometers_to_nearest_school,
+percent_of_school_aged_children_going_school_6_17,
+is_there_a_primary_school,
+classroom_setting_in_primary_school,${is_there_a_primary_school} = 'yes'
+specify_classroom_setting_in_primary_school,${classroom_setting_in_primary_school} = 'other_specify'
+number_of_classrooms_in_primary_school,${is_there_a_primary_school} = 'yes'
+number_of_teachers_in_primary_school,${is_there_a_primary_school} = 'yes'
+number_of_students_in_primary_school,${is_there_a_primary_school} = 'yes'
+is_there_a_secondary_school,
+classroom_setting_in_secondary_school,${is_there_a_secondary_school} = 'yes'
+specify_classroom_setting_in_secondary_school,${classroom_setting_in_secondary_school} = 'other_specify'
+number_of_classrooms_in_secondary_school,${is_there_a_secondary_school} = 'yes'
+number_of_teachers_in_secondary_school,${is_there_a_secondary_school} = 'yes'
+number_of_students_in_secondary_school,${is_there_a_secondary_school} = 'yes'
+is_there_educational_activities_available,
+specify_type_of_educational_activities,${is_there_educational_activities_available} = 'yes'
