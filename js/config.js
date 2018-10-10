@@ -4,7 +4,7 @@ var config = {};
 config.appConfig = {
 // General
     // Title - STRING.
-    Title : "OPSMAP - ISIMM",
+    Title : "ISIMM Plus (OPSMAP)",
     
     // Language - STRING : Works only for the dictionary.
     Language : "en",
@@ -43,7 +43,7 @@ config.data = {
 	 
     // In case data comes from CKAN
     ckan: true,
-
+    
     // URL of the CKAN
     ckanURL: "https://ckanviz.swige.unhcr.org",
 

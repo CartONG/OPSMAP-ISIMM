@@ -54,8 +54,29 @@ function info(h, fields, ch, map, relevance){
     */
 
     var dpHtml = '<button id="buttonExport" class="btn btn-primary" data-export="doc" type="button"><span class="glyphicon glyphicon-file"></span> Export as PDF</button>';
+    
+    var csvData = JSON.parse(JSON.stringify(h))
+    delete csvData['geopoint_latitude'];
+    delete csvData['geopoint_longitude'];
+
+    var csv = Papa.unparse([csvData]);
+    var now = new Date();
+    var exportDate = now.toISOString().split('T')[0].split('-').reverse().join('_');
+    var campName = /\//.test(h[config.data.name]) ? h[config.data.name].split('/')[0] : h[config.data.name]
+
+    console.log(campName);
+
+    var CSVExportHtml = '<a \
+        id="csv-export-link" \
+        href="' + encodeURI('data:text/csv;charset=utf-8,' + csv) + '" \
+        download="' + campName + '_' + exportDate + '.csv" \
+        class="btn btn-primary">\
+            <span class="glyphicon glyphicon-th-list"></span> Export Camp Data\
+    </a>';
 
     $('#left_of_map').append(dpHtml);
+    $('#left_of_map').append('<br />');
+    $('#left_of_map').append(CSVExportHtml);
     $('#left_of_map').append('<h3><span id="itemTitle">' + toProperCase(h[config.data.name]) + '</span><br><small id="itemDate">Last Update: ' + config.data.dateParser(h[config.data.last_update]) + '</small></h3>');
 
     //recreating divs								
@@ -82,7 +103,6 @@ function info(h, fields, ch, map, relevance){
     //looping on fields and populating
     for (var i in fields){
         var f = fields[i];
-
         if (h[f.csv_field]){
             relevant = isRelevant(f.csv_field, relevance, fieldValuesByName);
             if (f.chart){	

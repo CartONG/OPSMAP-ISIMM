@@ -6,6 +6,14 @@ body{
     margin: 0;
     overflow-y: scroll;
 }
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 22px;
+    margin-bottom: 16px;
+}
 .topRow{
     margin-right: 0px;
     padding-left: 25px;
@@ -60,4 +68,14 @@ body{
     -webkit-box-shadow: none;
             box-shadow: none;
 }
-		
+
+/* camp cluster filter */
+.cluster-select-group label {
+    text-align: left !important;
+    padding-left: 20px !important;
+}
+
+/* csv data export */
+#csv-export-link {
+    margin-top: 12px;
+}

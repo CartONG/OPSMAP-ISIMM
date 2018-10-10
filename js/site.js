@@ -155,19 +155,46 @@ $(function() {
 
     var cfgD = config.data;
 
+    // http://www.ietf.org/rfc/rfc2781.txt
+    function decodeUtf16(w) {
+      var i = 0;
+      var len = w.length;
+      var w1, w2;
+      var charCodes = [];
+      while (i < len) {
+        var w1 = w[i++];
+        if ((w1 & 0xF800) !== 0xD800) { // w1 < 0xD800 || w1 > 0xDFFF
+          charCodes.push(w1);
+          continue;
+        }
+        if ((w1 & 0xFC00) === 0xD800) { // w1 >= 0xD800 && w1 <= 0xDBFF
+          throw new RangeError('Invalid octet 0x' + w1.toString(16) + ' at offset ' + (i - 1));
+        }
+        if (i === len) {
+          throw new RangeError('Expected additional octet');
+        }
+        w2 = w[i++];
+        if ((w2 & 0xFC00) !== 0xDC00) { // w2 < 0xDC00 || w2 > 0xDFFF)
+          throw new RangeError('Invalid octet 0x' + w2.toString(16) + ' at offset ' + (i - 1));
+        }
+        charCodes.push(((w1 & 0x3ff) << 10) + (w2 & 0x3ff) + 0x10000);
+      }
+      return String.fromCharCode.apply(String, charCodes);
+    }
+
     function OPSMAP_loadCSV(url, callback){
         Papa.parse(url, {
             download: true,
             header: true,
             delimiter: true,
             complete: function(result){
-                callback(result.data);
+              callback(result.data);
             }
         });
     }
 
     function OPSMAP_loadDataset(url, callback) {
-      $.ajax(url, { success: callback })
+      $.ajax(url, { success: callback, dataType: 'text' })
     }
 
     function removeHeaderPrefixes (headers, prefixesToRemove) {
@@ -193,7 +220,7 @@ $(function() {
 
     function getCleanedCSV (data, newHeaders, columnsToRemove) {
       var split = data.split('\n');
-      split[0] = '"' + newHeaders.join('","') + '"';
+      split[0] = newHeaders.join(',');
 
       var objects = Papa.parse(split.join('\n'), { header: true, skipEmptyLines: true }).data;
 
@@ -208,6 +235,21 @@ $(function() {
       })
 
       return Papa.unparse(cleanedObjects);
+    }
+
+    function formatData (data) {
+      var parsing = Papa.parse(data).data;
+      parsing[0] = parsing[0].map(function(field) { return field.replace('\n', '') }); 
+      var newData = Papa.unparse(parsing);
+
+      var split = newData.split('\n');
+      var headers = split[0].replace(/^"|"$/g, '').split(',');
+
+      var newHeaders = removeHeaderPrefixes(headers, cfgD.datasetPrefixesToRemove)
+      var columnsToRemove = getColumnsToRemove(newHeaders, cfgD.datasetColumnsToRemove)      
+      var cleanedCSV = getCleanedCSV(newData, newHeaders, columnsToRemove)
+    
+      return cleanedCSV;
     }
 
     var OPSMAP_remainingSources = (function(){
@@ -233,40 +275,9 @@ $(function() {
           .shift();
 
         OPSMAP_loadDataset(url, function(data) {
-          var split = data.split('\n');
-          var headers = split[0].replace(/^"|"$/g, '').split('","');
-
-          var newHeaders = removeHeaderPrefixes(headers, cfgD.datasetPrefixesToRemove)
-          var columnsToRemove = getColumnsToRemove(newHeaders, cfgD.datasetColumnsToRemove)
-          var cleanedCSV = getCleanedCSV(data, newHeaders, columnsToRemove)
-
-          /*
-          split[0] = '"' + newHeaders.join('","') + '"';
-
-          var results = Papa.parse(split.join('\n'), { header: true, skipEmptyLines: true });
-
-          // 2 - Remove columns when necessary
-          
-          var finalData = results.data.map(function (row) {
-            var props = Object.keys(row);
-
-            props.forEach(function (prop) {
-              if (columnsToRemove.indexOf(prop) > -1) { delete row[prop]; }
-            })
-
-            row['geopoint_latitude'] = row['gps_coordinates'].split(',')[0];
-            row['geopoint_longitude'] = row['gps_coordinates'].split(',')[1];
-
-            return row;
-          })
-
-          var csv = Papa.unparse(finalData);
-          */
-
-          OPSMAP_dataset = Papa.parse(cleanedCSV, { header: true, delimiter: true }).data;
-
+          var csv = formatData(data)
+          OPSMAP_dataset = Papa.parse(csv, { header: true, delimiter: true }).data;
           OPSMAP_remainingSources--;
-
           if (!OPSMAP_remainingSources) {
               OPSMAP_processData(OPSMAP_fields, OPSMAP_dataset, OPSMAP_choices, OPSMAP_externalChoices, OPSMAP_relevance);
           }    
@@ -274,8 +285,9 @@ $(function() {
       })
 
     } else {
-      OPSMAP_loadCSV(cfgD.dataset, function(data){
-        OPSMAP_dataset = data;
+      OPSMAP_loadDataset(cfgD.dataset, function(data){
+        var csv = formatData(data)
+        OPSMAP_dataset = Papa.parse(csv, { header: true, delimiter: true }).data;
         OPSMAP_remainingSources--;
         if (!OPSMAP_remainingSources) {
             OPSMAP_processData(OPSMAP_fields, OPSMAP_dataset, OPSMAP_choices, OPSMAP_externalChoices, OPSMAP_relevance);
@@ -344,14 +356,6 @@ $(function() {
       var select = document.querySelector('#cluster-select')
       select.innerHTML = getClusterOptions(dataset)
 
-      /*
-      marker_list.push({
-        'name': toProperCase(v[config.data.name]),
-        'coordo': [parseFloat(v[config.data.lat]), parseFloat(v[config.data.lon])],
-        'properties': v
-      });
-      */
-
       select.addEventListener('change', function (ev) {
         var cluster = ev.target.value;
 
@@ -366,17 +370,6 @@ $(function() {
         csv_markers.addLayers(layers);
 
         map.fitBounds(csv_markers.getBounds(), { maxZoom: 10, padding: [15, 15], duration: 500 })
-
-        // Hack to force the map to render so the selected layers stay on the map even
-        // if the camp does not belong to the selected cluster
-        /*
-        var tempLayers = selectionLayer.getLayers()
-
-        console.log(tempLayers)
-
-        selectionLayer.clearLayers()
-        tempLayers.forEach(function(layer) { selectionLayer.addLayer(layer) })
-        */
 
         marker_list = layers.map(function(layer) {
           var v = layer.options.obj;
